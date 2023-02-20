@@ -22,6 +22,7 @@ jobs:
           targetPlatform: iOS
           unityVersion: 2021.3.17f1
           buildName: NCMBUnityTest
+          allowDirtyBuild: true
       - name: upload artifact
         uses: actions/upload-artifact@v3
         with:
