@@ -1,0 +1,33 @@
+name: iOS Build 
+
+on:
+  push:
+    branches: main
+  pull_request: 
+    branches: main
+  workflow_dispatch: {}
+
+
+jobs:
+  build:
+    name: Build for iOS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          lfs: true
+      - name: Run the ios build
+        uses: game-ci/unity-builder@v2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          targetPlatform: iOS
+          unityVersion: 2021.2.19f1
+          allowDirtyBuild: true
+      - name: upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Build
+          path: build
+
